@@ -89,9 +89,9 @@ def cria_dataset(cadastro): # Mesma função que a Iris explicou no último coow
         #     str = "Detect"
         #     cv2.putText(img, str, (50, 50), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
 
-        str1 = 'Posicione sua mão dentro do quadrado'
+        str1 = 'Posicione sua mao dentro do quadrado'
         cv2.putText(img, str1, (50, 50), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 2)
-        str2 = 'Aperte "Espaço" para salvar o movimento'
+        str2 = 'Aperte "Espaco" para salvar o movimento'
         cv2.putText(img, str2, (50, 70), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 2)
         
 
