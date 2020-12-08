@@ -4,9 +4,9 @@ from PyQt5 import QtGui, QtCore, QtWidgets
 from PyQt5.QtCore import pyqtSignal, pyqtSlot, Qt, QThread
 
 
-class windowInfo(QMainWindow):
-    def __init__(self):
-        super().__init__()
+class Ui_windowInfo(object):
+    def setupUi(self, windowInfo):
+        Info.setObjectName("Info")
 
         self.upper = 100
         self.left = 100
@@ -110,5 +110,5 @@ class windowInfo(QMainWindow):
 
 
 application = QApplication(sys.argv) # Parametro para fechar janela
-j = windowInfo()
+j = Ui_windowInfo()
 sys.exit(application.exec())

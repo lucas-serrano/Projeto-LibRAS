@@ -9,7 +9,7 @@ from info_screen import *
 class Aprender(QMainWindow):
     def __init__ (self):
         super() .__init__()
-        self.ui = windowlearn()
+        self.ui = Ui_windowlearn()
         self.ui.setupUi(self)
         self.ui.learn.clicked.connect(self.voltaJanela)
 
@@ -22,12 +22,12 @@ class Aprender(QMainWindow):
 class Testar(QMainWindow):
     def __init__ (self):
         super() .__init__()
-        self = windowTestar()
-        self.setupUi(self)
-        self.test.clicked.connect(self.voltaJanela)
+        self.ui = Ui_windowTestar()
+        self.ui.setupUi(self)
+        self.ui.test.clicked.connect(self.voltaJanela)
 
     def voltaJanela(self):
-        self.origem = windowMenu()
+        self.origem = Menu()
         self.origem.show()
         self.close()
 
@@ -35,12 +35,12 @@ class Testar(QMainWindow):
 class Info(QMainWindow):
     def __init__ (self):
         super() .__init__()
-        self = windowInfo()
-        self.setupUi(self)
-        self.info.clicked.connect(self.voltaJanela)
+        self.ui = Ui_windowInfo()
+        self.ui.setupUi(self)
+        self.ui.info.clicked.connect(self.voltaJanela)
 
     def voltaJanela(self):
-        self.origem = windowMenu()
+        self.origem = Menu()
         self.origem.show()
         self.close()
 
@@ -48,13 +48,13 @@ class Info(QMainWindow):
 class Menu(QMainWindow):
     def __init__ (self):
         super() .__init__()
-        self.ui = windowMenu()
+        self.ui = Ui_windowMenu()
         self.ui.setupUi(self)
-        self.Aprender = windowlearn()
+        self.Aprender = Aprender()
         self.ui.learn.clicked.connect(self.mudaJanela)
-        self.Testar = windowTestar()
+        self.Testar = Testar()
         self.ui.test.clicked.connect(self.mudaJanela2)
-        self.Info = windowInfo()
+        self.Info = Info()
         self.ui.info.clicked.connect(self.mudaJanela3)
 
 
@@ -69,7 +69,6 @@ class Menu(QMainWindow):
     def mudaJanela3(self):
         self.Info.show()
         self.hide()
-
 
 
 

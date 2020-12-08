@@ -22,9 +22,9 @@ class VideoThread(QThread):
             if ret:
                 self.change_pixmap_signal.emit(crop_img)
 
-class windowlearn(QMainWindow):
-    def __init__(self):
-        super().__init__()
+class Ui_windowlearn(object):
+    def setupUi(self, windowlearn):
+        Aprender.setObjectName("Aprender")
 
         self.upper = 100
         self.left = 100
@@ -126,5 +126,5 @@ class windowlearn(QMainWindow):
         return QtGui.QPixmap.fromImage(p)
 
 application = QApplication(sys.argv) # Parametro para fechar janela
-j = windowlearn()
+j = Ui_windowlearn()
 sys.exit(application.exec())
