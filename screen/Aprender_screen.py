@@ -22,7 +22,7 @@ class VideoThread(QThread):
             if ret:
                 self.change_pixmap_signal.emit(crop_img)
 
-class Ui_windowlearn(object):
+class Ui_windowlearn(QMainWindow):
     def setupUi(self, windowlearn):
         Aprender.setObjectName("Aprender")
 
