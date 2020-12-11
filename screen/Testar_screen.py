@@ -19,9 +19,9 @@ class VideoThread(QThread):
             if ret:
                 self.change_pixmap_signal.emit(crop_img)
                 
-class Ui_windowTestar(object):
-    def setupUi(self, windowTestar):
-        Testar.setObjectName("Testar")
+class windowTestar(QMainWindow):
+    def __init__(self):
+        super().__init__()
 
         self.upper = 100
         self.left = 100
@@ -106,7 +106,7 @@ class Ui_windowTestar(object):
         return QtGui.QPixmap.fromImage(p)
 
 application = QApplication(sys.argv) # Parametro para fechar janela
-j = Ui_windowTestar()
+j = windowTestar()
 sys.exit(application.exec())
 
 

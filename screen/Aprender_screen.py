@@ -1,7 +1,7 @@
 import sys
 from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton, QToolTip, QLabel, QComboBox, QWidget, QVBoxLayout
 from PyQt5 import QtGui, QtCore, QtWidgets
-from PyQt5.QtCore import pyqtSignal, pyqtSlot, Qt, QThread
+from PyQt5.QtCore import pyqtSignal, pyqtSlot, Qt, QThread, QTimer
 
 import cv2
 import numpy as np
@@ -22,9 +22,9 @@ class VideoThread(QThread):
             if ret:
                 self.change_pixmap_signal.emit(crop_img)
 
-class Ui_windowlearn(QMainWindow):
-    def setupUi(self, windowlearn):
-        Aprender.setObjectName("Aprender")
+class windowlearn(QMainWindow):
+    def __init__(self):
+        super().__init__()
 
         self.upper = 100
         self.left = 100
@@ -83,6 +83,21 @@ class Ui_windowlearn(QMainWindow):
         # start the thread
         self.thread.start()
 
+        self.TakePicture = QPushButton('Fotografar',self)
+        self.TakePicture.move(300, 530)
+        self.TakePicture.resize(70,30)
+        self.TakePicture.clicked.connect(self.start_action)
+
+        self.count = 30
+        self.start = False
+        
+        self.TakeLabel = QLabel('Texto',self)
+        self.TakeLabel.move(400, 530)
+        self.TakeLabel.resize(100,30)
+
+        timer = QTimer(self) 
+        timer.timeout.connect(self.showTime)
+        timer.start(100) 
 
         exit = QPushButton('Sair',self) # Declarando o botão 1 para o o objeto
         exit.move(700, 530) # Posição do objeto dentro da janela
@@ -96,6 +111,28 @@ class Ui_windowlearn(QMainWindow):
         self.learn.setStyleSheet('QPushButton {background-color:#772583; font-size:18px; color:white}') # Mudar o estilo do botão
 
         self.load_window()
+
+    def showTime(self): 
+  
+        if self.start == True: 
+            self.count -= 1
+  
+            if self.count == 0: 
+  
+                self.start = False
+                self.count = 30
+                self.TakeLabel.setText("Fotografado") 
+  
+        if self.start == True: 
+            text = str(self.count / 10) + " s"
+            self.TakeLabel.setText(text)
+
+    def start_action(self): 
+        
+        self.start = True
+  
+        if self.count == 0: 
+            self.start = False
 
     def load_window(self):
         self.setGeometry(self.left,self.upper,self.width,self.height)
@@ -126,5 +163,5 @@ class Ui_windowlearn(QMainWindow):
         return QtGui.QPixmap.fromImage(p)
 
 application = QApplication(sys.argv) # Parametro para fechar janela
-j = Ui_windowlearn()
+j = windowlearn()
 sys.exit(application.exec())
