@@ -6,6 +6,9 @@ from PyQt5.QtCore import pyqtSignal, pyqtSlot, Qt, QThread, QTimer
 import cv2
 import numpy as np
 
+import datetime
+from datetime import date
+
 
 CATEGORIES = ["A","B","C","D","E","F","G","I","L","M","N","O","P","Q","R","T","U","V","W","Y"]
 
@@ -18,6 +21,7 @@ class VideoThread(QThread):
         while True:
             ret, cv_img = cap.read()
             crop_img = cv_img[100:300, 100:300]
+            self.capturando = crop_img
 
             if ret:
                 self.change_pixmap_signal.emit(crop_img)
@@ -88,6 +92,11 @@ class windowlearn(QMainWindow):
         self.TakePicture.resize(70,30)
         self.TakePicture.clicked.connect(self.start_action)
 
+        self.TirarAgora = QPushButton('Tirar',self)
+        self.TirarAgora.move(500, 530)
+        self.TirarAgora.resize(70,30)
+        self.TirarAgora.clicked.connect(self.capture_image)
+
         self.count = 30
         self.start = False
         
@@ -117,15 +126,23 @@ class windowlearn(QMainWindow):
         if self.start == True: 
             self.count -= 1
   
-            if self.count == 0: 
-  
+            if self.count == 0:
                 self.start = False
-                self.count = 30
-                self.TakeLabel.setText("Fotografado") 
+                self.thread.change_pixmap_signal.connect(self.capture_image)
+                self.TakeLabel.setText("Fotografado")
+                self.count = 30 
+
   
         if self.start == True: 
             text = str(self.count / 10) + " s"
             self.TakeLabel.setText(text)
+
+    @QtCore.pyqtSlot()
+    def capture_image(self):
+        for i in range (30):
+            frame= self.thread.capturando
+            img_name = 'photos\{}_{}.png'.format(CATEGORIES[self.combo.currentIndex()],i)
+            cv2.imwrite(img_name, frame)
 
     def start_action(self): 
         
