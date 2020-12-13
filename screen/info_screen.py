@@ -4,9 +4,9 @@ from PyQt5 import QtGui, QtCore, QtWidgets
 from PyQt5.QtCore import pyqtSignal, pyqtSlot, Qt, QThread
 
 
-class Ui_windowInfo(object):
-    def setupUi(self, windowInfo):
-        Info.setObjectName("Info")
+class windowInfo(QMainWindow):
+    def __init__(self):
+        super().__init__()
 
         self.upper = 100
         self.left = 100
@@ -93,7 +93,9 @@ class Ui_windowInfo(object):
         exit.setStyleSheet('QPushButton {background-color:#BA0C2F; font-size:18px; color:white}') # Mudar o estilo do botão
         exit.clicked.connect(self.exit_click)
 
-        self.info = QPushButton('Voltar',self) # Declarando o botão 1 para o o objeto
+        #self.info = QtWidgets.QPushButton(self.centralwidget)
+        #self.info.setObjectName("info")
+        self.info = QtWidgets.QPushButton('Voltar',self) # Declarando o botão 1 para o o objeto
         self.info.move(630, 530) # Posição do objeto dentro da janela
         self.info.resize(70, 30) # Define o tamanho do botão (Largura, Altura)
         self.info.setStyleSheet('QPushButton {background-color:#772583; font-size:18px; color:white}') # Mudar o estilo do botão
@@ -110,5 +112,5 @@ class Ui_windowInfo(object):
 
 
 application = QApplication(sys.argv) # Parametro para fechar janela
-j = Ui_windowInfo()
+j = windowInfo()
 sys.exit(application.exec())

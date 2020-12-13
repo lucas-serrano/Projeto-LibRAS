@@ -2,8 +2,6 @@ import datetime
 from datetime import date
 from datetime import time
 
-today = date.today() # Usado para criar um elemento que guarda a data do dia
-
 #Bibliotecas para função cria_dataset()
 import cv2
 import numpy as np

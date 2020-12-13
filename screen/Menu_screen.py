@@ -4,9 +4,9 @@ from PyQt5 import QtGui, QtCore, QtWidgets
 from PyQt5.QtCore import pyqtSignal, pyqtSlot, Qt, QThread
 
 
-class Ui_windowMenu(QMainWindow):
-    def setupUi(self, windowMenu):
-        MainWindow.setObjectName("windowMenu")
+class windowMenu(QMainWindow):
+    def __init__(self):
+        super().__init__()
 
         self.upper = 100
         self.left = 100
@@ -78,5 +78,5 @@ class Ui_windowMenu(QMainWindow):
 
 
 application = QApplication(sys.argv) # Parametro para fechar janela
-j = Ui_windowMenu()
+j = windowMenu()
 sys.exit(application.exec())

@@ -1,10 +1,13 @@
 import sys
 from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton, QToolTip, QLabel, QComboBox, QWidget, QVBoxLayout
 from PyQt5 import QtGui, QtCore, QtWidgets
-from PyQt5.QtCore import pyqtSignal, pyqtSlot, Qt, QThread
+from PyQt5.QtCore import pyqtSignal, pyqtSlot, Qt, QThread, QTimer
 
 import cv2
 import numpy as np
+
+import datetime
+from datetime import date
 
 
 CATEGORIES = ["A","B","C","D","E","F","G","I","L","M","N","O","P","Q","R","T","U","V","W","Y"]
@@ -18,14 +21,18 @@ class VideoThread(QThread):
         while True:
             ret, cv_img = cap.read()
             crop_img = cv_img[100:300, 100:300]
+            self.capturando = crop_img
 
             if ret:
                 self.change_pixmap_signal.emit(crop_img)
 
-class Ui_windowlearn(object):
-    def setupUi(self, windowlearn):
-        Aprender.setObjectName("Aprender")
+class windowlearn(QMainWindow):
+    def __init__(self):
+        super().__init__()
 
+#class Ui_windowlearn(object):
+ #   def setupUi(self, windowlearn):
+  #      windowlearn.setObjectName("Aprender")
         self.upper = 100
         self.left = 100
         self.width = 800
@@ -83,6 +90,26 @@ class Ui_windowlearn(object):
         # start the thread
         self.thread.start()
 
+        self.TakePicture = QPushButton('Fotografar',self)
+        self.TakePicture.move(300, 530)
+        self.TakePicture.resize(70,30)
+        self.TakePicture.clicked.connect(self.start_action)
+
+        self.TirarAgora = QPushButton('Tirar',self)
+        self.TirarAgora.move(500, 530)
+        self.TirarAgora.resize(70,30)
+        self.TirarAgora.clicked.connect(self.capture_image)
+
+        self.count = 30
+        self.start = False
+        
+        self.TakeLabel = QLabel('Texto',self)
+        self.TakeLabel.move(400, 530)
+        self.TakeLabel.resize(100,30)
+
+        timer = QTimer(self) 
+        timer.timeout.connect(self.showTime)
+        timer.start(100) 
 
         exit = QPushButton('Sair',self) # Declarando o botão 1 para o o objeto
         exit.move(700, 530) # Posição do objeto dentro da janela
@@ -90,12 +117,44 @@ class Ui_windowlearn(object):
         exit.setStyleSheet('QPushButton {background-color:#BA0C2F; font-size:18px; color:white}') # Mudar o estilo do botão
         exit.clicked.connect(self.exit_click)
 
-        self.learn = QPushButton('Voltar',self) # Declarando o botão 1 para o o objeto
+        #self.learn = QtWidgets.QPushButton(self.centralwidget)
+        #self.learn.setObjectName("learn")
+        self.learn = QtWidgets.QPushButton('Voltar',self) # Declarando o botão 1 para o o objeto
         self.learn.move(630, 530) # Posição do objeto dentro da janela
         self.learn.resize(70, 30) # Define o tamanho do botão (Largura, Altura)
         self.learn.setStyleSheet('QPushButton {background-color:#772583; font-size:18px; color:white}') # Mudar o estilo do botão
 
         self.load_window()
+
+    def showTime(self): 
+  
+        if self.start == True: 
+            self.count -= 1
+  
+            if self.count == 0:
+                self.start = False
+                self.thread.change_pixmap_signal.connect(self.capture_image)
+                self.TakeLabel.setText("Fotografado")
+                self.count = 30 
+
+  
+        if self.start == True: 
+            text = str(self.count / 10) + " s"
+            self.TakeLabel.setText(text)
+
+    @QtCore.pyqtSlot()
+    def capture_image(self):
+        for i in range (30):
+            frame= self.thread.capturando
+            img_name = 'photos\{}_{}.png'.format(CATEGORIES[self.combo.currentIndex()],i)
+            cv2.imwrite(img_name, frame)
+
+    def start_action(self): 
+        
+        self.start = True
+  
+        if self.count == 0: 
+            self.start = False
 
     def load_window(self):
         self.setGeometry(self.left,self.upper,self.width,self.height)
@@ -126,5 +185,5 @@ class Ui_windowlearn(object):
         return QtGui.QPixmap.fromImage(p)
 
 application = QApplication(sys.argv) # Parametro para fechar janela
-j = Ui_windowlearn()
+j = windowlearn()
 sys.exit(application.exec())
