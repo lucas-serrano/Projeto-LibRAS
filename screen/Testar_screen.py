@@ -76,7 +76,9 @@ class windowTestar(QMainWindow):
         exit.setStyleSheet('QPushButton {background-color:#BA0C2F; font-size:18px; color:white}') # Mudar o estilo do botão
         exit.clicked.connect(self.exit_click)
 
-        self.test = QPushButton('Voltar',self) # Declarando o botão 1 para o o objeto
+        #self.test = QtWidgets.QPushButton(self.centralwidget)
+        #self.test.setObjectName("test")
+        self.test = QtWidgets.QPushButton('Voltar',self) # Declarando o botão 1 para o o objeto
         self.test.move(630, 530) # Posição do objeto dentro da janela
         self.test.resize(70, 30) # Define o tamanho do botão (Largura, Altura)
         self.test.setStyleSheet('QPushButton {background-color:#772583; font-size:18px; color:white}') # Mudar o estilo do botão

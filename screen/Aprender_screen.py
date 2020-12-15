@@ -30,6 +30,9 @@ class windowlearn(QMainWindow):
     def __init__(self):
         super().__init__()
 
+#class Ui_windowlearn(object):
+ #   def setupUi(self, windowlearn):
+  #      windowlearn.setObjectName("Aprender")
         self.upper = 100
         self.left = 100
         self.width = 800
@@ -114,7 +117,9 @@ class windowlearn(QMainWindow):
         exit.setStyleSheet('QPushButton {background-color:#BA0C2F; font-size:18px; color:white}') # Mudar o estilo do botão
         exit.clicked.connect(self.exit_click)
 
-        self.learn = QPushButton('Voltar',self) # Declarando o botão 1 para o o objeto
+        #self.learn = QtWidgets.QPushButton(self.centralwidget)
+        #self.learn.setObjectName("learn")
+        self.learn = QtWidgets.QPushButton('Voltar',self) # Declarando o botão 1 para o o objeto
         self.learn.move(630, 530) # Posição do objeto dentro da janela
         self.learn.resize(70, 30) # Define o tamanho do botão (Largura, Altura)
         self.learn.setStyleSheet('QPushButton {background-color:#772583; font-size:18px; color:white}') # Mudar o estilo do botão
