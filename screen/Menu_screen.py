@@ -45,19 +45,19 @@ class windowMenu(QMainWindow):
         self.learn.move(100,160)
         self.learn.resize(160,80)
         self.learn.setStyleSheet('QPushButton {background-color:#772583; font-size:18px; color:white}')
-        # learn.clicked.connect(self.select_click)
+        self.learn.clicked.connect(self.load_learn)
 
         self.test = QPushButton("Testar",self)
         self.test.move(100,250)
         self.test.resize(160,80)
         self.test.setStyleSheet('QPushButton {background-color:#772583; font-size:18px; color:white}')
-        # test.clicked.connect(self.select_click)
+        self.test.clicked.connect(self.load_test)
 
         self.info = QPushButton("Informações",self)
         self.info.move(100,340)
         self.info.resize(160,80)
         self.info.setStyleSheet('QPushButton {background-color:#772583; font-size:18px; color:white}')
-        # info.clicked.connect(self.select_click)
+        self.info.clicked.connect(self.load_info)
 
         exit = QPushButton('Sair',self) # Declarando o botão 1 para o o objeto
         exit.move(100, 430) # Posição do objeto dentro da janela
@@ -72,6 +72,18 @@ class windowMenu(QMainWindow):
         self.setGeometry(self.left,self.upper,self.width,self.height)
         self.setWindowTitle(self.name)
         self.show()
+
+    def load_learn(self):
+        Menu.hide()
+        Aprender.load_window()
+
+    def load_test(self):
+        Menu.hide()
+        Testar.load_window()
+
+    def load_info(self):
+        Menu.hide()
+        Info.load_window()
 
     def exit_click(self): # Comando do botão
         sys.exit()

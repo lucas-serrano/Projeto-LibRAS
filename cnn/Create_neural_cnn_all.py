@@ -7,14 +7,14 @@ import numpy as np
 
 import time
 
-NAME = 'Verificação_de_letras-cnn-64x2-{}'.format(int(time.time()))
+NAME = 'Rede_neural_treinada-cnn-{}'.format(int(time.time()))
 
 tensorboard = TensorBoard(log_dir = 'logs/{}'.format(NAME)) # Para ter uma visualização do treinamento da rede neural
 
-pickle_in = open("output\\X_all.pickle","rb")
+pickle_in = open("cnn\\output\\X_all.pickle","rb")
 X = np.array(pickle.load(pickle_in))
 
-pickle_in = open("output\\y_all.pickle","rb")
+pickle_in = open("cnn\\output\\y_all.pickle","rb")
 y = np.array(pickle.load(pickle_in))
 
 X = np.array(X/255.0) #Simplificando coloração de Pixels para valores entre 0 e 1
@@ -39,7 +39,7 @@ model = Sequential([Conv2D(64,(2,2), activation='relu', input_shape = X.shape[1:
 
 # model.summary()
 adam = tf.keras.optimizers.Adam(learning_rate=0.001)
-model.compile(optimizer= adam, loss='categorical_crossentropy', metrics=['acc'])
+model.compile(optimizer= adam, loss='SparseCategoricalCrossentropy', metrics=['acc'])
 model.fit(X, y, batch_size=32, epochs=1, validation_split=0.1, callbacks = [tensorboard])
 
-model.save('output\\treinando_rede_all.model') # Salvando Rede Neural
+model.save('cnn\\output\\treinando_rede_all.model') # Salvando Rede Neural

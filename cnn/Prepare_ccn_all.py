@@ -3,7 +3,8 @@ import matplotlib.pyplot as plt
 import os
 import cv2
 
-DATADIR = "dataset\\training" #Onde estão sendo armazenados os arquivos
+
+DATADIR = "cnn\\dataset\\training" #Onde estão sendo armazenados os arquivos
 CATEGORIES = ["A","B","C","D","E","F","G","I","L","M","N","O","P","Q","R","T","U","V","W","Y"] #Possibilidades de estudo
 
 training_data = []
@@ -38,10 +39,10 @@ X = np.array(X).reshape(-1, IMG_SIZE, IMG_SIZE, 1) # -1: Quantas features tem, I
 
 import pickle # Salvar os arquivos criados 
 
-pickle_out = open("output\\X_all.pickle","wb") # Salvar X
+pickle_out = open("cnn\\output\\X_all.pickle","wb") # Salvar X
 pickle.dump(X,pickle_out)
 pickle_out.close()
 
-pickle_out = open("output\\y_all.pickle","wb") # Salvar y
+pickle_out = open("cnn\\output\\y_all.pickle","wb") # Salvar y
 pickle.dump(y,pickle_out)
 pickle_out.close()

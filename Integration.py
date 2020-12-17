@@ -50,7 +50,7 @@ class windowMenu(QMainWindow):
         image_logo_LibRAS.move(320,140)
         image_logo_LibRAS.resize(400,400)
         image_logo_LibRAS.setAlignment(QtCore.Qt.AlignCenter)
-        pixmap = QtGui.QPixmap('geral_images\LogoLibRAS.png')
+        pixmap = QtGui.QPixmap('screen\geral_images\LogoLibRAS.png')
         smaller_pixmap = pixmap.scaled(400, 400, Qt.KeepAspectRatio, Qt.FastTransformation)
         image_logo_LibRAS.setPixmap(QtGui.QPixmap(smaller_pixmap))
 
@@ -58,7 +58,7 @@ class windowMenu(QMainWindow):
         image_logo_RAS.move(640,520)
         image_logo_RAS.resize(151,51)
         image_logo_RAS.setAlignment(QtCore.Qt.AlignCenter)
-        pixmapRAS = QtGui.QPixmap('geral_images\LogoRAS.png')
+        pixmapRAS = QtGui.QPixmap('screen\geral_images\LogoRAS.png')
         smaller_pixmapRAS = pixmapRAS.scaled(151, 51, Qt.KeepAspectRatio, Qt.FastTransformation)
         image_logo_RAS.setPixmap(QtGui.QPixmap(smaller_pixmapRAS))
 
@@ -165,21 +165,16 @@ class windowlearn(QMainWindow):
         self.setLayout(vbox)
 
         # create the video capture thread
-        self.thread = VideoThread()
+        ##### self.thread = VideoThread()
         # connect its signal to the update_image slot
-        self.thread.change_pixmap_signal.connect(self.update_image)
+        thread.change_pixmap_signal.connect(self.update_image)
         # start the thread
-        self.thread.start()
+        thread.start()
 
         self.TakePicture = QPushButton('Fotografar',self)
         self.TakePicture.move(300, 530)
         self.TakePicture.resize(70,30)
         self.TakePicture.clicked.connect(self.start_action)
-
-        self.TirarAgora = QPushButton('Tirar',self)
-        self.TirarAgora.move(500, 530)
-        self.TirarAgora.resize(70,30)
-        self.TirarAgora.clicked.connect(self.capture_image)
 
         self.count = 30
         self.start = False
@@ -213,7 +208,8 @@ class windowlearn(QMainWindow):
   
             if self.count == 0:
                 self.start = False
-                self.thread.change_pixmap_signal.connect(self.capture_image)
+                # thread.change_pixmap_signal.connect(self.capture_image)
+                fotos = self.capture_image()
                 self.TakeLabel.setText("Fotografado")
                 self.count = 30 
 
@@ -225,9 +221,11 @@ class windowlearn(QMainWindow):
     @QtCore.pyqtSlot()
     def capture_image(self):
         for i in range (30):
-            frame= self.thread.capturando
-            img_name = 'photos\{}_{}.png'.format(CATEGORIES[self.combo.currentIndex()],i)
+            frame= thread.capturando
+            img_name = 'screen\photos\{}_{}.png'.format(CATEGORIES[self.combo.currentIndex()],i)
             cv2.imwrite(img_name, frame)
+        return True
+
 
     def start_action(self): 
         
@@ -242,7 +240,7 @@ class windowlearn(QMainWindow):
         self.show()
 
     def select_click(self):
-        pixmap = QtGui.QPixmap('hands_images\{}.png'.format(CATEGORIES[self.combo.currentIndex()]))
+        pixmap = QtGui.QPixmap('screen\hands_images\{}.png'.format(CATEGORIES[self.combo.currentIndex()]))
         smaller_pixmap = pixmap.scaled(200, 200, Qt.KeepAspectRatio, Qt.FastTransformation)
         self.image_hand.setPixmap(smaller_pixmap)
 
@@ -276,7 +274,7 @@ class windowTestar(QMainWindow):
         self.left = 100
         self.width = 800
         self.height = 600
-        self.name = "Aprender"
+        self.name = "Testar"
 
         self.setMinimumSize(QtCore.QSize(800, 600))
         self.setMaximumSize(QtCore.QSize(800, 600))
@@ -306,12 +304,27 @@ class windowTestar(QMainWindow):
         self.setLayout(vbox)
 
         # create the video capture thread
-        self.thread2 = VideoThread()
+        #####self.thread = VideoThread()
         # connect its signal to the update_image slot
-        self.thread2.change_pixmap_signal.connect(self.update_image)
+        thread.change_pixmap_signal.connect(self.update_image)
         # start the thread
-        self.thread2.start()
+        thread.start()
 
+        self.TakePicture = QPushButton('Fotografar',self)
+        self.TakePicture.move(300, 530)
+        self.TakePicture.resize(70,30)
+        self.TakePicture.clicked.connect(self.start_action)
+
+        self.count = 30
+        self.start = False
+        
+        self.TakeLabel = QLabel('Texto',self)
+        self.TakeLabel.move(400, 530)
+        self.TakeLabel.resize(100,30)
+
+        timer = QTimer(self) 
+        timer.timeout.connect(self.showTime)
+        timer.start(100) 
 
         exit = QPushButton('Sair',self) # Declarando o botão 1 para o o objeto
         exit.move(700, 530) # Posição do objeto dentro da janela
@@ -326,6 +339,38 @@ class windowTestar(QMainWindow):
         self.back.clicked.connect(self.back_click)
 
         # self.load_window()
+
+    def showTime(self): 
+  
+        if self.start == True: 
+            self.count -= 1
+  
+            if self.count == 0:
+                self.start = False
+                # thread.change_pixmap_signal.connect(self.capture_image)
+                fotos = self.capture_image()
+                self.TakeLabel.setText("Fotografado")
+                self.count = 30 
+
+  
+        if self.start == True: 
+            text = str(self.count / 10) + " s"
+            self.TakeLabel.setText(text)
+
+    @QtCore.pyqtSlot()
+    def capture_image(self):
+        for i in range (30):
+            frame= thread.capturando
+            img_name = 'screen\photos\{}_{}.png'.format('a_mimir',i)
+            cv2.imwrite(img_name, frame)
+        return True
+
+    def start_action(self): 
+        
+        self.start = True
+  
+        if self.count == 0: 
+            self.start = False
 
     def load_window(self):
         self.setGeometry(self.left,self.upper,self.width,self.height)
@@ -469,8 +514,11 @@ class windowInfo(QMainWindow):
         Menu.show()
 
 application = QApplication(sys.argv) # Parametro para fechar janela
-Aprender = windowlearn()
+
+thread = VideoThread()
+
 Testar = windowTestar()
+Aprender = windowlearn()
 Info = windowInfo()
 Menu = windowMenu()
 sys.exit(application.exec())
