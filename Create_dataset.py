@@ -229,7 +229,7 @@ class windowlearn(QMainWindow):
     def capture_image(self):
         for i in range (30):
             frame= thread.capturando
-            img_name = 'screen\photos\{}\{}.png'.format(CATEGORIES[self.combo.currentIndex()],i+self.Caixa.value())
+            img_name = 'cnn\New_dataset\{}\{}.png'.format(CATEGORIES[self.combo.currentIndex()],i+self.Caixa.value())
             cv2.imwrite(img_name, frame)
         self.Caixa.setValue(self.Caixa.value() + 30)
         return True
