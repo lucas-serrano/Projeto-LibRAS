@@ -1,14 +1,12 @@
 import sys
 import os
 
-from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton, QToolTip, QLabel, QComboBox, QWidget, QVBoxLayout
+from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton, QToolTip, QLabel, QComboBox, QWidget, QVBoxLayout, QSpinBox
 from PyQt5 import QtGui, QtCore, QtWidgets
 from PyQt5.QtCore import pyqtSignal, pyqtSlot, Qt, QThread, QTimer
 
 import cv2
 import numpy as np
-
-import tensorflow as tf
 
 import datetime
 from datetime import date
@@ -161,7 +159,12 @@ class windowlearn(QMainWindow):
         self.image_opencv = QLabel(self)
         self.image_opencv.move(300, 50)
         self.image_opencv.resize(450, 450)
-        self.image_opencv.setStyleSheet("border: 3px solid black;") 
+        self.image_opencv.setStyleSheet("border: 3px solid black;")
+
+        self.Caixa = QSpinBox(self)
+        self.Caixa.resize(200,20)
+        self.Caixa.move(30,200)
+        self.Caixa.setMaximum(3000)
 
         vbox = QVBoxLayout()
         vbox.addWidget(self.image_opencv)
@@ -186,10 +189,6 @@ class windowlearn(QMainWindow):
         self.TakeLabel = QLabel('Texto',self)
         self.TakeLabel.move(400, 530)
         self.TakeLabel.resize(100,30)
-
-        self.Result = QLabel('',self)
-        self.Result.move(30,200)
-        self.Result.resize(200,20)
 
         timer = QTimer(self) 
         timer.timeout.connect(self.showTime)
@@ -218,8 +217,6 @@ class windowlearn(QMainWindow):
                 self.start = False
                 # thread.change_pixmap_signal.connect(self.capture_image)
                 fotos = self.capture_image()
-                letra = self.predict()
-                self.Result.setText(letra)
                 self.TakeLabel.setText("Fotografado")
                 self.count = 30 
 
@@ -232,30 +229,10 @@ class windowlearn(QMainWindow):
     def capture_image(self):
         for i in range (30):
             frame= thread.capturando
-            img_name = 'screen\photos\{}_{}.png'.format(CATEGORIES[self.combo.currentIndex()],i)
+            img_name = 'screen\photos\{}\{}.png'.format(CATEGORIES[self.combo.currentIndex()],i+self.Caixa.value())
             cv2.imwrite(img_name, frame)
+        self.Caixa.setValue(self.Caixa.value() + 30)
         return True
-
-    def predict(self):
-        iris = []
-        for i in range(0,30):
-            prediction = model.predict([self.prepare('screen\photos\{}_{}.png'.format(CATEGORIES[self.combo.currentIndex()],i))]) # Quando usar Predict -> Deve ser uma lista
-            valor = np.where(prediction==1)
-            try:
-                iris.append(CATEGORIES[int(valor[1])])
-            except TypeError:
-                i+=1
-        print(iris)            
-        return self.most_frequent(iris)
- 
-    def most_frequent(self,List): 
-            return max(set(List), key = List.count) 
-
-    def prepare(self,filepath):
-        IMG_SIZE = 64  # 50 in txt-based
-        img_array = cv2.imread(filepath, cv2.IMREAD_GRAYSCALE)
-        new_array = cv2.resize(img_array, (IMG_SIZE, IMG_SIZE))
-        return new_array.reshape(-1, IMG_SIZE, IMG_SIZE, 1)
 
 
     def start_action(self): 
@@ -547,8 +524,6 @@ class windowInfo(QMainWindow):
 application = QApplication(sys.argv) # Parametro para fechar janela
 
 thread = VideoThread()
-
-model = tf.keras.models.load_model("cnn\\output\\treinando_rede_all.model") # carregando a rede neural
 
 Testar = windowTestar()
 Aprender = windowlearn()

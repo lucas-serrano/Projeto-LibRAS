@@ -146,7 +146,7 @@ class windowlearn(QMainWindow):
     def capture_image(self):
         for i in range (30):
             frame= self.thread.capturando
-            img_name = 'photos\{}_{}.png'.format(CATEGORIES[self.combo.currentIndex()],i)
+            img_name = 'screen\photos\{}\{}.png'.format(CATEGORIES[self.combo.currentIndex()],i)
             cv2.imwrite(img_name, frame)
 
     def start_action(self): 
@@ -162,7 +162,7 @@ class windowlearn(QMainWindow):
         self.show()
 
     def select_click(self):
-        pixmap = QtGui.QPixmap('hands_images\{}.png'.format(CATEGORIES[self.combo.currentIndex()]))
+        pixmap = QtGui.QPixmap('screen\hands_images\{}.png'.format(CATEGORIES[self.combo.currentIndex()]))
         smaller_pixmap = pixmap.scaled(200, 200, Qt.KeepAspectRatio, Qt.FastTransformation)
         self.image_hand.setPixmap(smaller_pixmap)
 
