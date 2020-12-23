@@ -551,7 +551,7 @@ application = QApplication(sys.argv) # Parametro para fechar janela
 
 thread = VideoThread()
 
-model = tf.keras.models.load_model("cnn\\output\\treinando_rede_all.model") # carregando a rede neural
+model = tf.keras.models.load_model("cnn\\output\\treinando_rede_top.model") # carregando a rede neural
 
 Testar = windowTestar()
 Aprender = windowlearn()
