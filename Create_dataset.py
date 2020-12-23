@@ -227,11 +227,11 @@ class windowlearn(QMainWindow):
 
     @QtCore.pyqtSlot()
     def capture_image(self):
-        for i in range (30):
+        for i in range (1600):
             frame= thread.capturando
-            img_name = 'cnn\New_dataset\{}\{}.png'.format(CATEGORIES[self.combo.currentIndex()],i+self.Caixa.value())
+            img_name = 'cnn\\new_dataset\\training\\{}\\{}.png'.format(CATEGORIES[self.combo.currentIndex()],i+self.Caixa.value())
             cv2.imwrite(img_name, frame)
-        self.Caixa.setValue(self.Caixa.value() + 30)
+        self.Caixa.setValue(self.Caixa.value() + 1600)
         return True
 
 

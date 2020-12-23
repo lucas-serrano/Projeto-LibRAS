@@ -14,7 +14,7 @@ import datetime
 from datetime import date
 
 
-CATEGORIES = ["A","B","C","D","E","F","G","I","L","M","N","O","P","Q","R","T","U","V","W","Y"]
+CATEGORIES = ["A","B","C","D","E","F","G","I","L","M","N","O","P","Q","R","S","T","U","V","W","Y"]
 
 class VideoThread(QThread):
     change_pixmap_signal = pyqtSignal(np.ndarray)
@@ -244,9 +244,12 @@ class windowlearn(QMainWindow):
             try:
                 iris.append(CATEGORIES[int(valor[1])])
             except TypeError:
-                i+=1
-        print(iris)            
-        return self.most_frequent(iris)
+                pass
+        print(iris) 
+        if iris != []:
+            return self.most_frequent(iris)
+        else:          
+            return "A mimir"
  
     def most_frequent(self,List): 
             return max(set(List), key = List.count) 

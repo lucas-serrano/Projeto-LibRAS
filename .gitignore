@@ -1,4 +1,8 @@
 cnn/iris.png
 cnn/lucas.png
-cnn/output/X_all.pickle
-cnn/output/y_all.pickle
+cnn/output/X_test.pickle
+cnn/output/X_training.pickle
+cnn/output/y_test.pickle
+cnn/output/y_training.pickle
+cnn/test.py
+screen/photos
