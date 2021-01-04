@@ -2,7 +2,7 @@
 
 ## Descrição do Projeto:
 
-Nosso projeto tem como meta criar um aplicativo para computadores que ensine o básico da Língua Brasileira de Sinais (LIBRAS) para todos os usuários, corrigindo movimentos errados através da webcam e utilizando um sistema de repetição que se adapta ao seu ritmo de aprendizado, bem semelhante aos famosos aplicativos de línguas. O grande objetivo do projeto é tornar o aprendizado em LIBRAS mais acessível a população brasileira, pretendendo aumentar a comunicação geral com deficientes auditivos e mudos, bem como sua inclusão na sociedade.
+O projeto LibRAS é uma das atividade da RAS UNESP Bauru do segundo semestre de 2020. Ele tem como objetivo criar um aplicativo para computadores que ensine o básico da Língua Brasileira de Sinais (LIBRAS) para todos os usuários. Os movimentos errados são corrigidos através da webcam, utilizando rede neural, visão computacional e a linguagem de programação Python. A proposta do projeto é tornar o aprendizado em LIBRAS mais acessível a população brasileira, pretendendo aumentar a comunicação geral com surdos e mudos, bem como sua inclusão na sociedade.
 
 ## Bibliotecas usadas:
 
