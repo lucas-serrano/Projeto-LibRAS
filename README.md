@@ -20,3 +20,11 @@ Instalação do OpenCV
 ```
 pip install opencv-python==4.4.0.40
 ```
+Instalação do PyQt5
+```
+pip install PyQt5==5.15.1
+```
+Instalação da DateTime
+```
+pip install DateTime==4.3
+```
