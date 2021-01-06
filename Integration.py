@@ -42,6 +42,7 @@ class windowMenu(QMainWindow):
 
         self.setMinimumSize(QtCore.QSize(800, 600))
         self.setMaximumSize(QtCore.QSize(800, 600))
+        self.setStyleSheet("background-color: white;") 
 
         title = QLabel(self)
         title.move(250,40)
@@ -126,6 +127,7 @@ class windowlearn(QMainWindow):
 
         self.setMinimumSize(QtCore.QSize(800, 600))
         self.setMaximumSize(QtCore.QSize(800, 600))
+        self.setStyleSheet("background-color: white;") 
 
         combo_text = QLabel(self)
         combo_text.move(30,60)
@@ -245,20 +247,27 @@ class windowlearn(QMainWindow):
                 iris.append(CATEGORIES[int(valor[1])])
             except TypeError:
                 pass
-        print(iris) 
+        print(iris)
+        analise = self.delete() 
         if iris != []:
             return self.most_frequent(iris)
         else:          
             return "A mimir"
+
+    def delete(self):
+        for i in range(0,30):
+            os.remove('screen\\photos\\{}_{}.png'.format(CATEGORIES[self.combo.currentIndex()],i))
+        return True
  
     def most_frequent(self,List): 
             return max(set(List), key = List.count) 
 
     def prepare(self,filepath):
         IMG_SIZE = 64  # 50 in txt-based
-        img_array = cv2.imread(filepath, cv2.IMREAD_GRAYSCALE)
+        # img_array = cv2.imread(filepath, cv2.IMREAD_GRAYSCALE)
+        img_array = cv2.imread(filepath)
         new_array = cv2.resize(img_array, (IMG_SIZE, IMG_SIZE))
-        return new_array.reshape(-1, IMG_SIZE, IMG_SIZE, 1)
+        return new_array.reshape(-1, IMG_SIZE, IMG_SIZE, 3)
 
 
     def start_action(self): 
@@ -312,6 +321,7 @@ class windowTestar(QMainWindow):
 
         self.setMinimumSize(QtCore.QSize(800, 600))
         self.setMaximumSize(QtCore.QSize(800, 600))
+        self.setStyleSheet("background-color: white;") 
 
         image_text = QLabel(self)
         image_text.move(30,270)
@@ -450,13 +460,14 @@ class windowInfo(QMainWindow):
 
         self.setMinimumSize(QtCore.QSize(800, 600))
         self.setMaximumSize(QtCore.QSize(800, 600))
+        self.setStyleSheet("background-color: #772583;") 
 
         title = QLabel(self)
         title.move(250,40)
         title.resize(300,90)
         title.setText("LibRAS")
         title.setAlignment(QtCore.Qt.AlignCenter)
-        title.setStyleSheet('QLabel {font:bold; font-size:35px; color:#BA0C2F}')
+        title.setStyleSheet('QLabel {font:bold; font-size:35px; color: white}')
 
         title_learn = QLabel(self)
         title_learn.move(130,120)
@@ -478,7 +489,7 @@ class windowInfo(QMainWindow):
         text_learn.setText("Modo de treino, onde o usuário receberá a imagem da letra e do movimento que deverá ser executado para a validação. Caso esteja errado, deverá tentar novamente até que o movimento seja executado de maneira correta, seguindo para a próxima letra do alfabeto estático de forma aleatória.")
         text_learn.setAlignment(QtCore.Qt.AlignCenter)
         text_learn.setWordWrap(True)
-        text_learn.setStyleSheet('QLabel {background-color:#772583; font-size:12px; color:"black"}')
+        text_learn.setStyleSheet('QLabel {background-color:#772583; font-size:12px; color:"white"}')
 
         text_learn.setLayoutDirection(QtCore.Qt.LeftToRight)
         text_learn.setInputMethodHints(QtCore.Qt.ImhNone)
@@ -494,7 +505,7 @@ class windowInfo(QMainWindow):
         text_test.setText("Modo para avaliar o aprendizado de LIBRAS, no qual o usuário receberá apenas a imagem da letra que deverá ser executada. O programa avaliará quais letras deverão ser feitas com maior frequência para reforçar o entendimento, e por meio do SRS (Sistema de Repetição Espaçada) encontrará a melhor maneira de fixação do que foi visto.")
         text_test.setAlignment(QtCore.Qt.AlignCenter)
         text_test.setWordWrap(True)
-        text_test.setStyleSheet('QLabel {background-color:#772583; font-size:12px; color:"black"}')
+        text_test.setStyleSheet('QLabel {background-color:#772583; font-size:12px; color:"white"}')
 
         text_test.setLayoutDirection(QtCore.Qt.LeftToRight)
         text_test.setInputMethodHints(QtCore.Qt.ImhNone)
@@ -551,7 +562,9 @@ application = QApplication(sys.argv) # Parametro para fechar janela
 
 thread = VideoThread()
 
-model = tf.keras.models.load_model("cnn\\output\\treinando_rede_top.model") # carregando a rede neural
+model = tf.keras.models.load_model(os.path.join("cnn/output/treinando_rede_done.model"))
+
+# model = tf.keras.models.load_model("cnn\\output\\treinando_rede_done.model") # carregando a rede neural
 
 Testar = windowTestar()
 Aprender = windowlearn()

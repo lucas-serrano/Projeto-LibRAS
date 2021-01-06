@@ -12,7 +12,7 @@ import datetime
 from datetime import date
 
 
-CATEGORIES = ["A","B","C","D","E","F","G","I","L","M","N","O","P","Q","R","T","U","V","W","Y"]
+CATEGORIES = ["A","B","C","D","E","F","G","I","L","M","N","O","P","Q","R","S","T","U","V","W","Y"]
 
 class VideoThread(QThread):
     change_pixmap_signal = pyqtSignal(np.ndarray)
@@ -227,11 +227,11 @@ class windowlearn(QMainWindow):
 
     @QtCore.pyqtSlot()
     def capture_image(self):
-        for i in range (1600):
+        for i in range (30):
             frame= thread.capturando
-            img_name = 'cnn\\new_dataset\\training\\{}\\{}.png'.format(CATEGORIES[self.combo.currentIndex()],i+self.Caixa.value())
+            img_name = 'cnn\\new_dataset\\test\\{}\\{}.png'.format(CATEGORIES[self.combo.currentIndex()],i+self.Caixa.value())
             cv2.imwrite(img_name, frame)
-        self.Caixa.setValue(self.Caixa.value() + 1600)
+        self.Caixa.setValue(self.Caixa.value() + 30)
         return True
 
 

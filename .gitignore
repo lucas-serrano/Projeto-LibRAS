@@ -1,8 +1,12 @@
-cnn/iris.png
-cnn/lucas.png
 cnn/output/X_test.pickle
 cnn/output/X_training.pickle
 cnn/output/y_test.pickle
 cnn/output/y_training.pickle
 cnn/test.py
 screen/photos
+cnn/output/X_test_color.pickle
+cnn/output/X_training_color.pickle
+cnn/output/y_test_color.pickle
+cnn/output/y_training_color.pickle
+Jupyter_files.ipynb
+cnn/Prepare_cnn_color.py

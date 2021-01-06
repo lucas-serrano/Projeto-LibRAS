@@ -18,7 +18,8 @@ def create_data(DIRECTORY):
         class_num = CATEGORIES.index(category) # Dando um número para a categoria
         for img in os.listdir(path):
             try:
-                img_array = cv2.imread(os.path.join(path,img), cv2.IMREAD_GRAYSCALE) #Cada imagem também é convertida na escala de cinza
+                img_array = cv2.imread(os.path.join(path,img)) #Cada imagem também é convertida na escala de cinza
+                # img_array = cv2.imread(os.path.join(path,img), cv2.IMREAD_GRAYSCALE) #Cada imagem também é convertida na escala de cinza
                 new_array = cv2.resize(img_array,(IMG_SIZE,IMG_SIZE)) #Redimensionando a imagem
                 data.append([new_array,class_num]) #Inserindo a imagem e sua classificação
                 print(category, img, DIRECTORY)
@@ -48,27 +49,27 @@ def organize(data, X, y):
 organize(training_data, X_training, y_training)
 organize(test_data, X_test, y_test)
 
-X_training = np.array(X_training).reshape(-1, IMG_SIZE, IMG_SIZE, 1) # -1: Quantas features tem, IMG_SIZE x IMG_SIZE: tamanho da imagem, 1: indica que o canal de cores é só o cinza (3 se RGB)
-X_test = np.array(X_test).reshape(-1, IMG_SIZE, IMG_SIZE, 1) # -1: Quantas features tem, IMG_SIZE x IMG_SIZE: tamanho da imagem, 1: indica que o canal de cores é só o cinza (3 se RGB)
+X_training = np.array(X_training).reshape(-1, IMG_SIZE, IMG_SIZE, 3) # -1: Quantas features tem, IMG_SIZE x IMG_SIZE: tamanho da imagem, 1: indica que o canal de cores é só o cinza (3 se RGB)
+X_test = np.array(X_test).reshape(-1, IMG_SIZE, IMG_SIZE, 3) # -1: Quantas features tem, IMG_SIZE x IMG_SIZE: tamanho da imagem, 1: indica que o canal de cores é só o cinza (3 se RGB)
 
 import pickle # Salvar os arquivos criados 
 
-pickle_out = open("cnn\\output\\X_training.pickle","wb") # Salvar X_training
+pickle_out = open("cnn\\output\\X_training_color.pickle","wb") # Salvar X_training
 pickle.dump(X_training,pickle_out)
 pickle_out.close()
 print("Saved X_training.pickle")
 
-pickle_out = open("cnn\\output\\y_training.pickle","wb") # Salvar y_training
+pickle_out = open("cnn\\output\\y_training_color.pickle","wb") # Salvar y_training
 pickle.dump(y_training,pickle_out)
 pickle_out.close()
 print("Saved y_training.pickle")
 
-pickle_out = open("cnn\\output\\X_test.pickle","wb") # Salvar X_training
+pickle_out = open("cnn\\output\\X_test_color.pickle","wb") # Salvar X_training
 pickle.dump(X_test,pickle_out)
 pickle_out.close()
 print("Saved X_test.pickle")
 
-pickle_out = open("cnn\\output\\y_test.pickle","wb") # Salvar y_training
+pickle_out = open("cnn\\output\\y_test_color.pickle","wb") # Salvar y_training
 pickle.dump(y_test,pickle_out)
 pickle_out.close()
 print("Saved y_test.pickle")
