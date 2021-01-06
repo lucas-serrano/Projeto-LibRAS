@@ -183,7 +183,7 @@ class windowlearn(QMainWindow):
         self.TakePicture.resize(70,30)
         self.TakePicture.clicked.connect(self.start_action)
 
-        self.count = 30
+        self.count = 10
         self.start = False
         
         self.TakeLabel = QLabel('Texto',self)
@@ -218,7 +218,7 @@ class windowlearn(QMainWindow):
                 # thread.change_pixmap_signal.connect(self.capture_image)
                 fotos = self.capture_image()
                 self.TakeLabel.setText("Fotografado")
-                self.count = 30 
+                self.count = 10 
 
   
         if self.start == True: 
@@ -323,7 +323,7 @@ class windowTestar(QMainWindow):
         self.TakePicture.resize(70,30)
         self.TakePicture.clicked.connect(self.start_action)
 
-        self.count = 30
+        self.count = 10
         self.start = False
         
         self.TakeLabel = QLabel('Texto',self)
@@ -358,7 +358,7 @@ class windowTestar(QMainWindow):
                 # thread.change_pixmap_signal.connect(self.capture_image)
                 fotos = self.capture_image()
                 self.TakeLabel.setText("Fotografado")
-                self.count = 30 
+                self.count = 10 
 
   
         if self.start == True: 
