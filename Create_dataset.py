@@ -232,8 +232,8 @@ class windowlearn(QMainWindow):
             img_name = 'cnn\\new_dataset\\test\\{}\\{}.png'.format(CATEGORIES[self.combo.currentIndex()],i+self.Caixa.value())
             cv2.imwrite(img_name, frame)
         self.Caixa.setValue(self.Caixa.value() + 30)
-        if (self.Caixa.value()) == 420 :
-            self.Caixa.setValue( 210 )
+        if (self.Caixa.value()) == 210 :
+            self.Caixa.setValue( 0 )
         return True
 
 
