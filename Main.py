@@ -147,14 +147,14 @@ class windowlearn(QMainWindow):
         select.clicked.connect(self.select_click)
 
         image_text = QLabel(self)
-        image_text.move(30,270)
+        image_text.move(30,200)
         image_text.resize(200,20)
         image_text.setText("Imite a letra")
         image_text.setAlignment(QtCore.Qt.AlignCenter)
         image_text.setStyleSheet('QLabel {font:bold; font-size:20px; color="black"}')
 
         self.image_hand = QLabel(self)
-        self.image_hand.move(30,300)
+        self.image_hand.move(30,230)
         self.image_hand.resize(200,200)
         self.image_hand.setStyleSheet("border: 3px solid black;") 
         self.image_hand.setAlignment(QtCore.Qt.AlignCenter)
@@ -178,19 +178,30 @@ class windowlearn(QMainWindow):
         thread.start()
 
         self.TakePicture = QPushButton('Fotografar',self)
+        self.TakePicture.setStyleSheet('QPushButton {background-color:#D3D3D3; font-size:18px; color:black}')
         self.TakePicture.move(300, 530)
-        self.TakePicture.resize(70,30)
+        self.TakePicture.resize(100,50)
         self.TakePicture.clicked.connect(self.start_action)
 
         self.count = 30
         self.start = False
         
-        self.TakeLabel = QLabel('Texto',self)
+        self.TakeLabel = QLabel('',self)
+        self.TakeLabel.setStyleSheet('QLabel {font:bold; font-size:18px; color:black}')
+        self.TakeLabel.setAlignment(QtCore.Qt.AlignCenter)
         self.TakeLabel.move(400, 530)
-        self.TakeLabel.resize(100,30)
+        self.TakeLabel.resize(150,50)
+
+        self.ResultTitle = QLabel('',self)
+        self.ResultTitle.setAlignment(QtCore.Qt.AlignCenter)
+        self.ResultTitle.setStyleSheet('QLabel {font:bold; font-size:18px; color:#BA0C2F}')
+        self.ResultTitle.move(30,450)
+        self.ResultTitle.resize(200,20)
 
         self.Result = QLabel('',self)
-        self.Result.move(30,200)
+        self.Result.setAlignment(QtCore.Qt.AlignCenter)
+        self.Result.setStyleSheet('QLabel {font:bold; font-size:18px; color:#BA0C2F}')
+        self.Result.move(30,480)
         self.Result.resize(200,20)
 
         timer = QTimer(self) 
@@ -239,20 +250,20 @@ class windowlearn(QMainWindow):
         return True
 
     def predict(self):
-        iris = []
+        guess = []
         for i in range(0,30):
             prediction = model.predict([self.prepare('screen\photos\{}_{}.png'.format(CATEGORIES[self.combo.currentIndex()],i))]) # Quando usar Predict -> Deve ser uma lista
             valor = np.where(prediction==1)
             try:
-                iris.append(CATEGORIES[int(valor[1])])
+                guess.append(CATEGORIES[int(valor[1])])
             except TypeError:
                 pass
-        print(iris)
+        print(guess)
         analise = self.delete() 
-        if iris != []:
-            return self.most_frequent(iris)
+        if guess != []:
+            return self.most_frequent(guess)
         else:          
-            return "A mimir"
+            return "Não consegui"
 
     def delete(self):
         for i in range(0,30):
@@ -273,6 +284,8 @@ class windowlearn(QMainWindow):
     def start_action(self): 
         
         self.start = True
+        self.ResultTitle.setText('Você fez a letra:')
+        self.Result.setText('...')
   
         if self.count == 0: 
             self.start = False
