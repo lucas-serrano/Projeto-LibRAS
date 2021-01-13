@@ -31,3 +31,11 @@ pip install DateTime==4.3
 ## Instruções para a execução do programa:
 
 Ao baixar os arquivos deste projeto execute o "Main.py", podendo ser diretamente pelo CMD do computador ou por um editor de códigos. Para que o programa funcione corretamente todos eles devem estar juntos em uma mesma pasta.
+
+## Aprendendo LIBRAS:
+
+No menu inicial há 4 botões: Aprender, Testar, Informações e Sair.
+- Aprender: O usuário deverá escolher qual letra do alfabeto deseja aprender e selecionar a opção "Aprender" logo abaixo. Uma foto da letra a ser realizada será disponibilizada para consulta. Em seguida, ao repetir o movimento em frente a câmera, o botão "Fotografar" deverá ser selecionado para que o programa verifique se a execução está correta. Uma letra aparecerá no canto esquerdo, indicando qual a rede neural conseguiu identificar.
+- Testar:
+- Informações: Um breve texto explicará o intuito de cada um dos modos acima.
+- Sair: O programa fechará por completo.
