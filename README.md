@@ -28,3 +28,6 @@ Instalação da DateTime
 ```
 pip install DateTime==4.3
 ```
+## Instruções para a execução do programa:
+
+Ao baixar os arquivos deste projeto execute o "Main.py", podendo ser diretamente pelo CMD do computador ou por um editor de códigos. Para que o programa funcione corretamente todos eles devem estar juntos em uma mesma pasta.
